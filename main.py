@@ -21,12 +21,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 bootstrap = Bootstrap(app)
 ckeditor = CKEditor(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False, base_url=None)
-MY_MAIL = "slightlyacidicx@gmail.com"
-RECIEVER_MAIL = "slightlyacidicx@gmail.com"
-MY_MAIL_PASSWORD = "lxuchrieajcmnrlp"
-PORT = 465
-context = ssl.create_default_context()
-smtp_server = "smtp.gmail.com"
+
 
 db =SQLAlchemy(app)
 login_manager = LoginManager(app)
@@ -43,7 +38,6 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     posts = relationship("BlogPost", back_populates="author")
-    # comments = relationship("Comment", back_populates="comment_author")
     
 class BlogPost(db.Model):
     __tablename__ = "blog_posts"
@@ -140,11 +134,6 @@ def contact():
         Name = form.name.data,
         Email = form.email.data,
         Message = form.message.data,
-        
-        with smtplib.SMTP_SSL(smtp_server, PORT, context=context) as server:
-            server.login(MY_MAIL, MY_MAIL_PASSWORD)
-            server.sendmail(MY_MAIL, RECIEVER_MAIL, Message)
-        
         messagesent = True;
                
         redirect(url_for("contact", messagesent=messagesent, form=form))
