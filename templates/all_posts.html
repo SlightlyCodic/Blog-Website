@@ -1,0 +1,37 @@
+{% include "header.html" %}
+
+  <div class="container info-blog-container heading-font">
+    <h1>All Blog Posts</h1>
+    <p>Explores all the blog posts here</p>
+  </div>
+  <div class="container all-blog-container">
+    <div class="row">
+      <div class="col-lg-12 col-md-10">
+        {% if current_user.id == 1: %}
+        <div class="container clearfix">
+          <a class "btn btn-primary float-right" href="new-post">Create New Post</a>
+        </div>
+        {% endif %}
+        {% for post in all_posts %}
+        <div class= "post-preview">
+          <a href = "{{url_for('show_post', post_id= post.id)}}" style="text-decoration: none">
+            <h2 class="post-title">
+              {{post.title}}
+            </h2>
+            <h3 class="post-subtitle">
+              {{post.subtitle}}
+            </h3>
+          </a>
+          <p class="post-meta">
+            Posted by {{post.author.username}}
+            on {{post.date}}
+          </p>
+        </div>
+        {% if current_user.id == 1: %}
+        <a href="{{url_for('delete_post', post_id=post.id) }}">✘</a>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% include "footer.html" %}
