@@ -469,9 +469,6 @@ footer .copyright {
   font-family: var(--navbar-font);
 }
 
-#submit {
-  value: "Submit"
-}
 
 @media (max-width: 1440px) {
 .container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
