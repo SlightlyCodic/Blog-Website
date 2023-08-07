@@ -1,18 +1,17 @@
 import os
-from flask import Flask, render_template,redirect, url_for, abort, flash
-from Form import LoginForm, RegisterForm, ContactForm, CreatePostForm
-from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, UserMixin, login_required, current_user, logout_user, login_user
-from functools import wraps
-from flask_gravatar import Gravatar
-from flask_ckeditor import CKEditor
-from sqlalchemy.orm import relationship
 from datetime import date
+from functools import wraps
 from dotenv import load_dotenv, find_dotenv
+from flask import Flask, render_template, redirect, url_for, abort, flash
+from flask_bootstrap import Bootstrap
+from flask_ckeditor import CKEditor
+from flask_gravatar import Gravatar
+from flask_login import LoginManager, UserMixin, current_user, logout_user, login_user
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import relationship
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from Form import LoginForm, RegisterForm, ContactForm, CreatePostForm
 
 
 def create_app():
