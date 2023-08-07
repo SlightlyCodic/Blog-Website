@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template,redirect, url_for, abort, flash
 from Form import LoginForm, RegisterForm, ContactForm, CreatePostForm
 from flask_bootstrap import Bootstrap
@@ -11,12 +12,14 @@ from flask_gravatar import Gravatar
 from flask_ckeditor import CKEditor
 from sqlalchemy.orm import relationship
 from datetime import date
-import smtplib, ssl
+from dotenv import load_dotenv, find_dotenv
 
+load_dotenv(find_dotenv())
+database = os.getenv("DATABASE")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'boobs'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = database
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 bootstrap = Bootstrap(app)
 ckeditor = CKEditor(app)
@@ -50,9 +53,9 @@ class BlogPost(db.Model):
     body = db.Column(db.Text, nullable=False)
     img_url = db.Column(db.String(250), nullable=False)    
     
-    
-with app.app_context():
-    db.create_all()
+# Run only once
+# with app.app_context():
+#     db.create_all()
 
 def admin_only(f):
     @wraps(f)
